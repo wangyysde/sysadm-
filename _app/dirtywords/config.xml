@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<title><![CDATA[脏字过滤]]></title>
+	<status>
+		<admin><![CDATA[1]]></admin>
+		<www><![CDATA[1]]></www>
+		<api><![CDATA[1]]></api>
+	</status>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<installed><![CDATA[1]]></installed>
+	<system><![CDATA[1]]></system>
+	<note><![CDATA[设置用于过滤敏感文字信息，一行一词，请注意填写]]></note>
+	<taxis><![CDATA[1]]></taxis>
+</root>

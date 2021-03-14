@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<title><![CDATA[守护进程]]></title>
+	<status>
+		<admin><![CDATA[1]]></admin>
+		<www><![CDATA[1]]></www>
+		<api><![CDATA[1]]></api>
+	</status>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<note><![CDATA[基于Swoole的守护进程，实现秒级计划任务执行]]></note>
+</root>

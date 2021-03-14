@@ -1,0 +1,55 @@
+<div class="list" id="{$_rs.identifier}_preview">
+<table class="layui-table">
+<thead>
+<tr>
+	<th>ID</th>
+	<!-- loop from=$layout key=$key value=$value id=$tmpid -->
+	<th class="lft">{$value}</th>
+	<!-- /loop -->
+	<!-- if $_rs.form_price -->
+	<th>{lang价格}</th>
+	<th>{lang运费}</th>
+	<th>{lang税费}</th>
+	<!-- /if -->
+	<th width="60px">{lang排序}</th>
+	<th id="{$_rs.identifier}_action_buttons" width="120" style="text-align:center;">
+		<!-- if !$_true_delete -->
+		<div class="layui-btn-group" style="padding:2px 0 0 0;">
+			<input type="button" value="{lang选择}" onclick="$.phpokform.extitle_list('{$_rs.id}','{$_rs.identifier}',{$_rs.form_maxcount},'{$_rs.form_input_val}')" class="layui-btn layui-btn-sm" />
+			<input type="button" value="{lang添加}" onclick="$.phpokform.extitle_quickadd('{$_rs.id}','{$_rs.identifier}',{$_rs.form_maxcount})" class="layui-btn layui-btn-sm" />
+		</div>
+		<!-- else -->
+		<input type="button" value="{lang添加}" onclick="$.phpokform.extitle_quickadd('{$_rs.id}','{$_rs.identifier}',{$_rs.form_maxcount})" class="layui-btn layui-btn-sm" />
+		<!-- /if -->
+	</th>
+</tr>
+</thead>
+<tbody>
+<!-- loop from=$rslist key=$key value=$value id=$idx -->
+<tr data-id="{$value.id}" id="tr_{$_rs.identifier}_{$value.id}">
+	<td class="center">{$value.id}</td>
+	<!-- loop from=$layout key=$k value=$v id=$idxx -->
+	<td>{$value[$k]}</td>
+	<!-- /loop -->
+	<!-- if $_rs.form_price -->
+	<td><input type="text" name="_price[{$value.id}]" id="_price_{$value.id}" value="{$value.price}" class="layui-input" /></td>
+	<td><input type="text" name="_freight[{$value.id}]" id="_freight_{$value.id}" value="{$value.freight}" class="layui-input" /></td>
+	<td><input type="text" name="_tax[{$value.id}]" id="_tax_{$value.id}" value="{$value.tax}" class="layui-input" /></td>
+	<!-- /if -->
+	<td align="center" data-value="{$idx.num}" data-total="{$idx.total}" data-id="{$value.id}" data-name="taxis-{$_rs.identifier}-{$_rs.id}">
+		<div class="button-group">
+			<input type="button" value="↑" class="phpok-btn" title="{lang向前移一位}" onclick="$.phpokform.extitle_sortup(this,'{$_rs.id}','{$_rs.identifier}')" />
+			<input type="button" value="↓" class="phpok-btn" title="{lang向后移一位}" onclick="$.phpokform.extitle_sortdown(this,'{$_rs.id}','{$_rs.identifier}')" />
+		</div>
+	</td>
+	<td class="center">
+		<div class="layui-btn-group">
+			<input type="button" value="{lang编辑}" onclick="$.phpokform.extitle_quickedit('{$value.id}','{$_rs.id}')" class="layui-btn layui-btn-sm" />
+			<input type="button" value="{lang删除}" onclick="$.phpokform.extitle_delete('{$value.id}','{$_rs.id}','{$_rs.identifier}')" class="layui-btn layui-btn-sm layui-btn-danger" />
+		</div>
+	</td>
+</tr>
+<!-- /loop -->
+</tbody>
+</table>
+</div>

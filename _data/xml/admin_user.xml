@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<user><![CDATA[账号]]></user>
+	<group_id><![CDATA[会员组]]></group_id>
+	<email><![CDATA[邮箱]]></email>
+	<fullname><![CDATA[姓名]]></fullname>
+</root>

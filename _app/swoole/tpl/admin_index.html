@@ -1,0 +1,181 @@
+<!-- include tpl=head_lay -->
+<div class="layui-card">
+	<div class="layui-card-header">
+		WebSocket 状态
+	</div>
+	<div class="layui-card-body">
+		<!-- if $swoole_start -->
+		开启中…
+		<input type="button" value="点击关闭" onclick="$.admin_swoole.ws_stop()" class="layui-btn layui-btn-danger" />
+		<!-- else -->
+		<input type="button" value="开启服务" onclick="$.admin_swoole.ws_start()" class="layui-btn" />
+		<input type="button" value="状态检测" onclick="$.admin_swoole.ws_status()" class="layui-btn layui-btn-warm" />
+		<!-- /if -->
+	</div>
+</div>
+<form method="post" class="layui-form" id="post_save" onsubmit="return $.admin_swoole.config_save()">
+<div class="layui-card">
+	<div class="layui-card-header">
+		参数设置
+	</div>
+	<div class="layui-card-body">
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				PHP脚本
+			</label>
+			<div class="layui-input-block gray" style="line-height:38px;">不清楚，请直接写 php，系统会尝试使用系统变量</div>
+			<div class="layui-input-block">
+				<input type="text" name="phpexec" value="{$rs.phpexec}" class="layui-input" />
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				类型
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="radio" name="wstype" value="ws"{if !$rs.wstype || $rs.wstype == 'ws'} checked{/if} title="WS" />
+				<input type="radio" name="wstype" value="wss"{if $rs.wstype == 'wss'} checked{/if} title="WSS" />
+			</div>
+			<div class="layui-form-mid">
+				请设置 WebSocket 类型，注意，如果您的网站使用 https，请选择 WSS
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				公钥证书
+			</label>
+			<div class="layui-input-inline default-auto">
+				<input type="text" name="publickey" id="publickey" value="{$rs.publickey}" class="layui-input" />
+			</div>
+			<div class="layui-input-inline auto gray lh38">
+				<div class="layui-btn-group">
+					<input type="button" value="{lang选择文件}" class="layui-btn layui-btn-sm" onclick="$.phpokform.text_button_file_select('publickey')" />
+					<input type="button" value="{lang下载}" class="layui-btn layui-btn-sm" onclick="$.phpokform.text_button_file_download('publickey')" />
+					<input type="button" value="{lang清除}" class="layui-btn layui-btn-sm layui-btn-warm" onclick="$.phpokform.clear('publickey');" />
+				</div>
+			</div>
+			<div class="layui-form-mid">
+				仅限使用 WSS 时需要
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				私钥
+			</label>
+			<div class="layui-input-inline default-auto">
+				<input type="text" name="privatekey" id="privatekey" value="{$rs.privatekey}" class="layui-input" />
+			</div>
+			<div class="layui-input-inline auto gray lh38">
+				<div class="layui-btn-group">
+					<input type="button" value="{lang选择文件}" class="layui-btn layui-btn-sm" onclick="$.phpokform.text_button_file_select('privatekey')" />
+					<input type="button" value="{lang下载}" class="layui-btn layui-btn-sm" onclick="$.phpokform.text_button_file_download('privatekey')" />
+					<input type="button" value="{lang清除}" class="layui-btn layui-btn-sm layui-btn-warm" onclick="$.phpokform.clear('privatekey');" />
+				</div>
+			</div>
+			<div class="layui-form-mid">
+				仅限使用 WSS 时需要
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				端口号
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="text" name="port" value="{$rs.port}" class="layui-input" />
+			</div>
+			<div class="layui-form-mid">
+				请设置端口号，留空将使用 9502 作为端口，请注意防火墙通过相应端口
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				进程数
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="text" name="work_num" value="{$rs.work_num}" class="layui-input" />
+			</div>
+			<div class="layui-form-mid">
+				设置启动的 Worker 进程数，建议设置为 2
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				任务数
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="text" name="max_request" value="{$rs.max_request}" class="layui-input" />
+			</div>
+			<div class="layui-form-mid">
+				设置 worker 进程的最大任务数，建议设置 50
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				Task 进程
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="text" name="task_worker_num" value="{$rs.task_worker_num}" class="layui-input" />
+			</div>
+			<div class="layui-form-mid">
+				配置计划任务进程的数量，注意，留空或为0时，不执行计划任务
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				间隔时间
+			</label>
+			<div class="layui-input-inline auto">
+				<select id="task_worker_time" name="task_worker_time">
+					<option value="1">1 秒</option>
+					<option value="3">3 秒</option>
+					<option value="5"{if $rs.task_worker_time == 5} selected{/if}>5 秒</option>
+					<option value="7"{if $rs.task_worker_time == 7} selected{/if}>7 秒</option>
+					<option value="9"{if $rs.task_worker_time == 9} selected{/if}>9 秒</option>
+				</select>
+			</div>
+			<div class="layui-form-mid">
+				设置计划任务的间隔时间，不清楚请设置请使用默认
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				链接地址
+			</label>
+			<div class="layui-input-inline long">
+				<input type="text" name="task_worker_link" id="task_worker_link" value="{$rs.task_worker_link}" class="layui-input" />
+			</div>
+			<div class="layui-input-inline auto gray lh38">
+				<div class="layui-btn-group">
+					<input type="button" value="计划链接" onclick="$('#task_worker_link').val('{$sys.url}{$sys.api_file}?{$sys.ctrl_id}=task')" class="layui-btn layui-btn-sm" />
+					<input type="button" value="删除" onclick="$('#task_worker_link').val('')" class="layui-btn layui-btn-sm layui-btn-danger" />
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				链接IP
+			</label>
+			<div class="layui-input-inline auto">
+				<input type="text" name="task_worker_ip" id="task_worker_ip" value="{$rs.task_worker_ip}" class="layui-input" />
+			</div>
+			<div class="layui-input-inline auto gray lh38">
+				<div class="layui-btn-group">
+					<input type="button" value="本地IP" onclick="$('#task_worker_ip').val('127.0.0.1')" class="layui-btn layui-btn-sm" />
+					<input type="button" value="删除" onclick="$('#task_worker_ip').val('')" class="layui-btn layui-btn-sm layui-btn-danger" />
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">
+				&nbsp;
+			</label>
+			<div class="layui-input-block">
+				<input type="submit" value="参数保存" class="layui-btn layui-btn-danger" />
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<!-- include tpl=foot_lay -->

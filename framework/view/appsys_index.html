@@ -1,0 +1,43 @@
+<!-- include tpl=head_lay -->
+<div class="layui-card">
+	<div class="layui-card-header">
+		{lang已安装应用}
+		<!-- if $popedom.setting -->
+		<div class="layui-btn-group test-table-operate-btn fr">
+			<button class="layui-btn layui-btn-sm" onclick="$.win('{lang安装应用}','{url ctrl=appsys func=all/}')"><i class="layui-icon">&#xe654;</i>{lang安装应用}</button>
+			<button class="layui-btn layui-btn-sm" onclick="$.win('{lang应用备份列表}','{url ctrl=appsys func=backup_list/}')"><i class="layui-icon">&#xe674;</i> {lang备份列表}</button>
+		</div>
+		<!-- /if -->
+	</div>
+</div>
+<div class="layui-row layui-col-space10">
+	<!-- loop from=$rslist key=$key value=$value id=$tmpid -->
+	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3" id="apps_{$key}">
+		<div class="layui-card">
+    		<div class="layui-card-header">
+    			{$value.title}
+    			<div class="fr">
+	    			{$key}
+	    			<span class="layui-badge layui-bg-blue hand" title="点击排序" onclick="$.admin_appsys.taxis(this,'{$key}')">{$value.taxis ? $value.taxis : 255}</span>
+    			</div>
+    		</div>
+    		<div class="layui-card-body">
+    			<div style="height:72px;line-height:24px;overflow:hidden;color:gray;">{$value.note}</div>
+    			<div>
+	    			<div class="layui-btn-group">
+						<input type="button" value="{lang管理}" onclick="$.win('{$value.title}','{url ctrl=$key/}')" class="layui-btn layui-btn-xs" />
+						<input type="button" value="{lang备份}" onclick="$.admin_appsys.backup_zip('{$key}')" class="layui-btn layui-btn-xs" />
+						<input type="button" value="{lang导出}" onclick="$.admin_appsys.export_zip('{$key}')" class="layui-btn layui-btn-xs" />
+					</div>
+					<!-- if !$value.system -->
+					<input type="button" value="{lang卸载}" onclick="$.admin_appsys.uninstall('{$key}')" class="layui-btn layui-btn-xs layui-btn-danger fr" />
+					<!-- else -->
+					<input type="button" value="{lang系统应用，不支持卸载}" class="layui-btn layui-btn-xs layui-btn-disabled fr" disabled />
+					<!-- /if -->
+				</div>
+    		</div>
+    	</div>
+	</div>
+	<!-- /loop -->
+</div>
+<!-- include tpl=foot_lay -->
