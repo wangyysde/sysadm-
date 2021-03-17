@@ -1,12 +1,15 @@
 <?php
 /**
- * PHPOK企业站系统，使用PHP语言及MySQL数据库编写的企业网站建设系统，基于LGPL协议开源授权
- * @package phpok
- * @author phpok.com
- * @copyright 2015-2016 深圳市锟铻科技有限公司
- * @version 4.x
- * @license http://www.phpok.com/lgpl.html PHPOK开源授权协议：GNU Lesser General Public License
- */
+ **
+ ** SYSADM 企业站系统，使用PHP语言及MySQL数据库编写的企业网站建设系统，基于LGPL协议开源授权
+ ** @作者 王余应 <net_use@bzhy.com>
+ ** @版权 斑竹网络 
+ ** @主页 https://www.sysadm.cn
+ ** @版本 1.x
+ ** @授权 GNU Lesser General Public License  https://www.sysadm.cn/lgpl.html
+ ** @时间 2021åneocomplcache_start_auto_complete)¹´02月25日
+ **
+ **/
 
 if(!defined("SYSADM_SET")){
 	exit("<h1>Access Denied</h1>");
@@ -41,3 +44,4 @@ define("LICENSE_NAME","phpok.com");
 * 显示开发者信息，即Powered by信息
 */
 define("LICENSE_POWERED",true);
+
